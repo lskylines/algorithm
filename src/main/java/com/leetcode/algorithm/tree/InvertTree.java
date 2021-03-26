@@ -12,7 +12,7 @@ import java.util.LinkedList;
  */
 public class InvertTree {
     /*
-     *Description : leetcode226  Invert Binary Tree
+     * Description : leetcode226  Invert Binary Tree
      * Invert a binary tree.
      */
 
