@@ -1,6 +1,6 @@
 package com.leetcode.algorithm.sort;
 
-import java.util.Arrays;
+import com.leetcode.algorithm.basic.GenerateData;
 
 /**
  * @ ClassName MergeSort

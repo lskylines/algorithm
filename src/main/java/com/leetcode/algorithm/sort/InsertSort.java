@@ -1,5 +1,7 @@
 package com.leetcode.algorithm.sort;
 
+import com.leetcode.algorithm.basic.GenerateData;
+
 import java.util.Arrays;
 
 /**

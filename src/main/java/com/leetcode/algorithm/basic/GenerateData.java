@@ -1,4 +1,4 @@
-package com.leetcode.algorithm.sort;
+package com.leetcode.algorithm.basic;
 
 
 import java.util.Random;
@@ -10,7 +10,6 @@ import java.util.Random;
  * @ Version: 1.0
  */
 public class GenerateData {
-
     private static int MAX_VALUE = 100;
 
     /**生成N个[0-100]随机数据*/
@@ -19,6 +18,15 @@ public class GenerateData {
         int[] arr = new int[n];
         for (int i = 0; i < arr.length; i++) {
             arr[i] = random.nextInt(MAX_VALUE);
+        }
+        return arr;
+    }
+
+    /**生成N个有序的数据*/
+    public static int[] generateOrder(int n) {
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = i + 1;
         }
         return arr;
     }
