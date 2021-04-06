@@ -9,7 +9,7 @@ import com.leetcode.algorithm.basic.GenerateSort;
  * @ 2021/3/30 21:56
  * @ Version: 1.0
  */
-public class Heap {
+public class HeapSort {
 
     public static void heapSort(int[] arr) {
         if (arr == null || arr.length < 2) {
