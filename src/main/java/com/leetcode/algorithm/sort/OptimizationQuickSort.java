@@ -1,6 +1,5 @@
 package com.leetcode.algorithm.sort;
 
-import com.leetcode.algorithm.basic.GenSwap;
 import com.leetcode.algorithm.basic.GenerateData;
 import com.leetcode.algorithm.basic.GenerateSort;
 
@@ -22,6 +21,8 @@ public class OptimizationQuickSort {
     }
     public static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
+            //经典快排优化为随机快排
+            swap(arr, left + (int)(Math.random() * (right - left + 1)), right);
             //将Partition过程分为 (left, num) [num...]  (num, right)
             int[] p = partition(arr, left, right);
             quickSort(arr, left, p[0] - 1);
