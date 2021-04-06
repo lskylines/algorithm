@@ -32,7 +32,7 @@ public class SelectSort {
         int[] arr = GenerateData.generate(100);
         System.out.println(Arrays.toString(arr));
         selectSort(arr, arr.length);
-        boolean flag = GenerateData.equal(arr);
+        boolean flag = GenerateData.isOrder(arr);
         System.out.println(flag);
     }
 }

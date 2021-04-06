@@ -48,7 +48,7 @@ public class MergeSort {
     public static void main(String[] args) {
         int[] arr = GenerateData.generate(100);
         mergeSort(arr, 0, arr.length - 1);
-        boolean flag = GenerateData.equal(arr);
+        boolean flag = GenerateData.isOrder(arr);
         System.out.println(flag);
     }
 }

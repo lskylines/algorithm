@@ -40,14 +40,47 @@ public class GenerateData {
         }
         return arr;
     }
-
     /**判断是否有序*/
-    public static boolean equal(int[] arr) {
+    public static boolean isOrder(int[] arr) {
+        if (arr == null || arr.length < 2) {
+            return true;
+        }
         for (int i = 0; i < arr.length - 1; i++) {
-            if (arr[i] > arr[i+1]) {
+            if (arr[i] > arr[i + 1]) {
                 return false;
             }
         }
         return true;
+    }
+
+    /**判断两个数组是否相等*/
+    public static boolean isEqual(int[] arr1, int[] arr2) {
+        if ((arr1 == null && arr2 != null) || (arr1 != null && arr2 == null)) {
+            return false;
+        }
+        if (arr1 == null && arr2 == null) {
+            return true;
+        }
+        if (arr1.length != arr2.length) {
+            return false;
+        }
+        for (int i = 0; i < arr1.length; i++) {
+            if (arr1[i] != arr2[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**复制数组*/
+    public static int[] copyArray(int[] arr) {
+        if (arr == null) {
+            return null;
+        }
+        int[] res = new int[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            res[i] = arr[i];
+        }
+        return res;
     }
 }

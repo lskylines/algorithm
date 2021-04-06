@@ -49,7 +49,7 @@ public class InsertSort {
         int[] arr = GenerateData.generate(100);
         System.out.println(Arrays.toString(arr));
         insertSort02(arr, arr.length);
-        Boolean flag = GenerateData.equal(arr);
+        Boolean flag = GenerateData.isOrder(arr);
         System.out.println(flag);
     }
 }
