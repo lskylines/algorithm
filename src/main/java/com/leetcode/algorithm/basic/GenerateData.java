@@ -22,6 +22,16 @@ public class GenerateData {
         return arr;
     }
 
+
+    /**生成随机大小的随机数*/
+    public static int[] generateRandom(int size, int value) {
+        int[] arr = new int[(int)((size + 1) * Math.random())];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = (int) ((value + 1) * Math.random()) - (int) ((value) * Math.random());
+        }
+        return arr;
+    }
+
     /**生成N个有序的数据*/
     public static int[] generateOrder(int n) {
         int[] arr = new int[n];
