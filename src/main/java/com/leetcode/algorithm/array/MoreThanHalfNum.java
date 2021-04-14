@@ -60,7 +60,7 @@ public class MoreThanHalfNum {
     public static void main(String[] args) {
         int[] nums = new int[]{2,2,1,1,1,2,2};
         MoreThanHalfNum obj = new MoreThanHalfNum();
-        int target = obj.moreThanHalfNumByPartition(nums);
+        int target = obj.moreThanHalfNum02(nums);
         System.out.println(target);
     }
 }
