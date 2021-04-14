@@ -12,7 +12,7 @@ public class MoreThanHalfNum {
     /*
      * 数组中出现次数超过一半的数字
      * 1) 排序后的中位数
-     * 2) 基于Partition函数 todo
+     * 2) 基于Partition函数
      * 3) 根据数组特点，相同+1， 不同-1
      */
     public int moreThanHalfNum(int[] nums) {
@@ -24,6 +24,52 @@ public class MoreThanHalfNum {
     }
 
     public int moreThanHalfNum02(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        findKthSmallest(nums, nums.length / 2);
+        int res = nums[nums.length / 2];
+        if (checkMoreThanHalf(nums, res)) {
+            return res;
+        } else {
+            return 0;
+        }
+    }
+
+    public void findKthSmallest(int[] nums, int k) {
+        int low  = 0;
+        int high = nums.length -1;
+        while (low < high) {
+            swap(nums, low + ((int)(Math.random() * (high - low + 1))), high);
+            int p = partition(nums, low, high);
+            if (p == k) {
+                break ;
+            } else if (p > k) {
+                high = p -1;
+            } else {
+                low = p + 1;
+            }
+        }
+    }
+
+    public int partition(int[] nums, int left, int right) {
+        int less = left - 1;
+        int more = right;
+        int current = left;
+        while (current < more) {
+            if (nums[current] < nums[right]) {
+                swap(nums, current++, ++less);
+            } else if (nums[current] > nums[right]) {
+                swap(nums, current, --more);
+            } else {
+                current++;
+            }
+        }
+        swap(nums, more, right);
+        return more;
+    }
+
+    public int moreThanHalfNum03(int[] nums) {
         if (nums == null || nums.length == 0) {
             return 0;
         }
@@ -54,6 +100,12 @@ public class MoreThanHalfNum {
             }
         }
         return times > nums.length / 2;
+    }
+
+    public void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 
 
