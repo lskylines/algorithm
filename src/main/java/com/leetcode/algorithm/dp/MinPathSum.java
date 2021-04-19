@@ -9,6 +9,8 @@ package com.leetcode.algorithm.dp;
 public class MinPathSum {
     /**
      * 矩阵的最小路径和
+     * 1) 使用空间的DP
+     * 2) 不使用空间的DP
      */
     public int minPathSum(int[][] matrix) {
         if (matrix == null || matrix.length == 0 || matrix[0] == null ||  matrix[0].length == 0) {
@@ -30,6 +32,29 @@ public class MinPathSum {
             }
         }
         return dp[row-1][col-1];
+    }
+
+    public int minPathSum02(int[][] matrix) {
+        if (matrix == null || matrix.length == 0 || matrix[0] == null ||  matrix[0].length == 0) {
+            return 0;
+        }
+        int m = matrix.length;
+        int n = matrix[0].length;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == 0 && j ==0) {
+                    continue;
+                }
+                if (i == 0) {
+                    matrix[i][j] += matrix[i][j - 1];
+                } else if (j == 0) {
+                    matrix[i][j] += matrix[i-1][j];
+                } else {
+                    matrix[i][j] = Math.min(matrix[i][j] + matrix[i-1][j], matrix[i][j] + matrix[i][j-1]);
+                }
+            }
+        }
+        return matrix[m-1][n-1];
     }
 
 
