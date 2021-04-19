@@ -1,5 +1,8 @@
 package com.leetcode.algorithm.dp;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @ ClassName MinPathSum
  * @ author lskyline
@@ -11,7 +14,10 @@ public class MinPathSum {
      * 矩阵的最小路径和
      * 1) 使用空间的DP
      * 2) 不使用空间的DP
+     * 3） 递归解法
      */
+
+    private Map<String, Integer> map = new HashMap<>();
     public int minPathSum(int[][] matrix) {
         if (matrix == null || matrix.length == 0 || matrix[0] == null ||  matrix[0].length == 0) {
             return 0;
@@ -57,7 +63,32 @@ public class MinPathSum {
         return matrix[m-1][n-1];
     }
 
+    public int minPathSum03(int[][] matrix) {
+        if (matrix == null || matrix.length == 0) {
+            return 0;
+        }
+        return minPathSum(matrix, matrix.length - 1, matrix[0].length -1);
+    }
 
+    public int minPathSum(int[][] matrix, int row, int col) {
+        if (row == 0 && col == 0) {
+            return matrix[row][col];
+        }
+        String key = row + "_" + col;
+        if (map.containsKey(key)) {
+            return map.get(key);
+        }
+        int res  =0 ;
+        if (row == 0) {
+            res =  matrix[row][col] + minPathSum(matrix, row, col-1);
+        } else if (col == 0) {
+            res =  matrix[row][col] + minPathSum(matrix, row-1, col);
+        } else {
+            res = matrix[row][col] += Math.min(minPathSum(matrix, row, col - 1), minPathSum(matrix, row-1, col));
+        }
+        map.put(key, res);
+        return res;
+    }
 
 
     public void printMatrix(int[][] dp) {
@@ -72,7 +103,7 @@ public class MinPathSum {
     public static void main(String[] args) {
         MinPathSum obj = new MinPathSum();
         int[][] matrix = new int[][]{{1, 3, 5, 9}, {8, 1, 3, 4}, {5, 0, 6, 1}, {8, 8, 4, 0}};
-        int res = obj.minPathSum(matrix);
+        int res = obj.minPathSum03(matrix);
         System.out.println(res);
     }
 }
