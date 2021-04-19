@@ -53,7 +53,7 @@ public class SuccessorNode {
     }
 
     public static Node getLeftMost(Node node) {
-        while (node != null) {
+        while (node.left != null) {
             node = node.left;
         }
         return node;
