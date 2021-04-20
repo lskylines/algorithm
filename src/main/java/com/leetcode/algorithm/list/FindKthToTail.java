@@ -21,7 +21,7 @@ public class FindKthToTail {
         while (k-- > 0 && fastNode != null) {
             fastNode = fastNode.next;
         }
-        if (k > 0) {
+        if (k >= 0) {
             return null;
         }
         while (fastNode != null) {
@@ -30,6 +30,7 @@ public class FindKthToTail {
         }
         return slowNode;
     }
+
 
     public static void main(String[] args) {
         ListNode head = new ListNode(1);
