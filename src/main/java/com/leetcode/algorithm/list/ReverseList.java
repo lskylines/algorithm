@@ -52,4 +52,19 @@ public class ReverseList {
         //插入完成后，已经是一个完全反转的链表，哨兵节点下一个节点就是反转后的第一个节点
         return headNode.next;
     }
+
+    /**
+     * 递归法
+     * @param head
+     * @return
+     */
+    public ListNode reverseList03(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode p = reverseList03(head.next);
+        head.next.next = head;
+        head.next = null;
+        return p;
+    }
 }
