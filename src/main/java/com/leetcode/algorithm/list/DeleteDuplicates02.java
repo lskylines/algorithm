@@ -40,7 +40,34 @@ public class DeleteDuplicates02 {
         return dummyNode.next;
     }
 
-    public static void main(String[] args) {
+    public static ListNode test(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode dummyNode = new ListNode(-1);
+        dummyNode.next = head;
+        ListNode cur = head;
+        ListNode preNode = dummyNode;
+        while (cur != null && cur.next != null) {
+            if (cur.val == cur.next.val) {
+                cur.next = cur.next.next;
+            } else {
+                cur = cur.next;
+            }
+        }
+        return head;
+    }
 
+    public static void main(String[] args) {
+        ListNode root = new ListNode(1);
+        root.next = new ListNode(2);
+        root.next.next = new ListNode(3);
+        root.next.next.next = new ListNode(3);
+        root.next.next.next.next = new ListNode(5);
+        ListNode curNode = test(root);
+        while (curNode != null) {
+            System.out.println(curNode.val);
+            curNode  = curNode.next;
+        }
     }
 }
