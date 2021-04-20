@@ -1,6 +1,9 @@
 package com.leetcode.algorithm.backtracking;
 
+import netscape.security.UserTarget;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -19,6 +22,16 @@ public class CombinationSum {
         return res;
     }
 
+    public List<List<Integer>> combinationSum2(int[] arr, int target) {
+        List<List<Integer>> ret = new ArrayList<>();
+        if (arr == null || target < 0) {
+            return ret;
+        }
+        Arrays.sort(arr);
+        backtrack(ret, new ArrayList<>(), arr, 0, target);
+        return ret;
+    }
+
     private void dfs(List<List<Integer>> res, List<Integer> list, int k, int start, int n) {
         if (list.size() == k || n <= 0) {
             if (list.size() == k && n == 0) {
@@ -33,9 +46,25 @@ public class CombinationSum {
         }
     }
 
+    private void backtrack(List<List<Integer>> res, List<Integer> cur, int[] candidates, int start, int target) {
+        if (target == 0) {
+            res.add(new ArrayList<>(cur));
+            return ;
+        }
+        for (int i = start; i < candidates.length; i++) {
+            if ((candidates[i] > target) || (i > start && candidates[i] == candidates[i-1])) {
+                continue;
+            }
+            cur.add(candidates[i]);
+            backtrack(res, cur, candidates, start+1, target - candidates[i]);
+            cur.remove(cur.size() - 1);
+        }
+    }
+
     public static void main(String[] args) {
         CombinationSum obj = new CombinationSum();
-        List<List<Integer>> results = obj.combinationSum(3, 7);
+        int[] arr = new int[]{2, 5, 2, 1, 2};
+        List<List<Integer>> results = obj.combinationSum2(arr, 5);
         for (List<Integer> result : results) {
             System.out.println(result);
         }
