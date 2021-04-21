@@ -47,6 +47,16 @@ public class IntersectionNode {
         return headA;
     }
 
+    public ListNode getIntersectionNode02(ListNode headA, ListNode headB) {
+        ListNode tempA = headA;
+        ListNode tempB = headB;
+        while (tempA != tempB) {
+            tempA = tempA != null ? tempA.next : headB;
+            tempB = tempB != null ? tempB.next : headA;
+        }
+        return tempA;
+    }
+
     private ListNode forward(ListNode node, int length) {
         for (int i=0 ; i < length; i++) {
             node = node.next;
