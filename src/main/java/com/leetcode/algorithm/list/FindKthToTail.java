@@ -1,6 +1,7 @@
 package com.leetcode.algorithm.list;
 
 import com.leetcode.algorithm.list.Node.ListNode;
+import com.sun.xml.internal.bind.v2.util.StackRecorder;
 
 /**
  * @ ClassName FindKthToTail
@@ -29,6 +30,27 @@ public class FindKthToTail {
             slowNode = slowNode.next;
         }
         return slowNode;
+    }
+
+    private ListNode target;
+    /**递归求解*/
+    public ListNode findKthToTail02(ListNode head, int k) {
+        if (head == null || k < 0) {
+            return head;
+        }
+        getLen(target, k);
+        return target;
+    }
+
+    private int getLen(ListNode head, int k) {
+        if (head == null) {
+            return 0;
+        }
+        int res = 1 + getLen(head.next, k);
+        if (res == k) {
+            target = head;
+        }
+        return res;
     }
 
 
