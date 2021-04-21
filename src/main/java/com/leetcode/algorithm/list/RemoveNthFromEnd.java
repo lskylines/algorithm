@@ -45,6 +45,34 @@ public class RemoveNthFromEnd {
         return head;
     }
 
+    /**
+     * 递归：
+     * 计算链表长度的递归其实可以把它看做是从后往前计算,当计算的长度是n的时候
+     * 就表示遍历到了倒数第n个节点了，这里只要求出倒数第n+1个节点
+     * @param head
+     * @param n
+     * @return
+     */
+    public ListNode removeNthFromEnd02(ListNode head, int n) {
+        int len = getLength(head, n);
+        //说明删除是头节点
+        if (n == len) {
+            return head.next;
+        }
+        return head;
+    }
+
+    private int getLength(ListNode head, int n) {
+        if (head == null) {
+            return 0;
+        }
+        int res = 1 + getLength(head.next, n);
+        if (res == n + 1) {
+            head.next = head.next.next;
+        }
+        return res;
+    }
+
     /**将fast指针往前走N步*/
     private ListNode forward(ListNode node, int n) {
         while (node != null && n-- > 0) {
