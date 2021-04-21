@@ -17,6 +17,7 @@ public class PrintFromTopToBottom {
      * 1)从上往下打印二叉树的每个节点
      * 2)从上往下多行打印二叉树
      * 3)之字形从上到下打印二叉树的每个节点
+     * 4) DFS实现从上到下打印多行二叉树
      */
     public List<Integer> printFromTopToBottom(TreeNode root) {
         List<Integer> res = new ArrayList<>();
@@ -107,6 +108,28 @@ public class PrintFromTopToBottom {
         return res;
     }
 
+    public List<List<Integer>> printFromTopToBottom04(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        dfs(res, root, 0);
+        return res;
+    }
+
+    private void dfs(List<List<Integer>> res, TreeNode root, int level) {
+        if (root == null) {
+            return ;
+        }
+        if (level >= res.size()) {
+            res.add(new ArrayList<>());
+        }
+        res.get(level).add(root.val);
+        dfs(res, root.left, level + 1);
+        dfs(res, root.right, level + 1);
+    }
+
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(1);
         root.left = new TreeNode(2);
@@ -114,7 +137,7 @@ public class PrintFromTopToBottom {
         root.left.left = new TreeNode(4);
         root.left.right = new TreeNode(5);
         PrintFromTopToBottom obj = new PrintFromTopToBottom();
-        List<List<Integer>> res = obj.printFromTopToBottom03(root);
+        List<List<Integer>> res = obj.printFromTopToBottom04(root);
         for (List<Integer> data : res) {
             System.out.println(data);
         }
