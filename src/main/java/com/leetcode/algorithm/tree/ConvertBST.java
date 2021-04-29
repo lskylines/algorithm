@@ -64,4 +64,45 @@ public class ConvertBST {
         }
         return root;
     }
+
+    //Morris遍历改装
+    public TreeNode convertBST03(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        TreeNode curNode = root;
+        TreeNode mostLeft = null;
+        int sum = 0;
+        while (curNode != null) {
+            mostLeft = curNode.right;
+            if (mostLeft != null) {
+                while (mostLeft.left != null && mostLeft.left != curNode) {
+                    mostLeft = mostLeft.left;
+                }
+                if (mostLeft.left == null) {
+                    mostLeft.left = curNode;
+                    curNode = curNode.right;
+                    continue;
+                } else {
+                    mostLeft.left = null;
+                }
+            }
+            sum += curNode.val;
+            curNode.val = sum;
+            System.out.println(curNode.val);
+            curNode = curNode.left;
+        }
+        return root;
+    }
+
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        ConvertBST obj = new ConvertBST();
+        obj.convertBST03(root);
+
+    }
 }
