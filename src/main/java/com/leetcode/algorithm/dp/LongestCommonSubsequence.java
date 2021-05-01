@@ -8,7 +8,8 @@ package com.leetcode.algorithm.dp;
  */
 public class LongestCommonSubsequence {
     /*
-     * 最长公共子序列 TODO 待优化
+     * 最长公共子序列
+     * 字串是连续的， 子序列非连续
      */
     public int longestCommonSubsequence(String text1, String text2) {
         if (text1 == null || text2 == null || text1.length() == 0 || text2.length() == 0) {
@@ -24,14 +25,13 @@ public class LongestCommonSubsequence {
                 if (text1.charAt(i -1) == text2.charAt(j -1)) {
                     dp[i][j] = dp[i-1][j-1] + 1;
                 } else {
-                    dp[i][j] = 0;
+                    dp[i][j] = Math.max(dp[i-1][j], dp[i][j-1]);
                 }
-                max = Math.max(dp[i][j], max);
             }
         }
 
         printMatrix(dp);
-        return max;
+        return dp[m][n];
     }
 
     public void printMatrix(int[][] dp) {
