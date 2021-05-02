@@ -1,4 +1,4 @@
-package com.leetcode.algorithm.num;
+package com.leetcode.algorithm.dp;
 
 /**
  * @ ClassName NumDecodings
@@ -9,6 +9,7 @@ package com.leetcode.algorithm.num;
 public class NumDecodings {
     /*
      *  把数字翻译成字符串
+     * 1) 动态规划
      */
     public int numDecodings(String s) {
         int[] dp = new int[s.length() + 1];
