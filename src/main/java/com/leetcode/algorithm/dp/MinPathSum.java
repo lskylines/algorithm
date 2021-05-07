@@ -63,6 +63,33 @@ public class MinPathSum {
         return matrix[m-1][n-1];
     }
 
+
+    public int minPathSum04(int[][] matrix) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return 0;
+        }
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        int[][] dp = new int[rows][cols];
+        for (int i =0;i < rows; i++) {
+            for (int j =0; j < cols; j++) {
+                if (i == 0 && j == 0) {
+                    dp[i][j] = matrix[0][0];
+                } else if (i == 0) {
+                    dp[i][j] = dp[i][j -1] + matrix[i][j];
+                } else if (j == 0) {
+                    dp[i][j] = dp[i-1][j] + matrix[i][j];
+                } else {
+                    dp[i][j] = Math.min(dp[i-1][j], dp[i][j-1]) + matrix[i][j];
+                }
+            }
+        }
+        printMatrix(dp);
+        return dp[rows -1][cols -1];
+    }
+
+
+
     public int minPathSum03(int[][] matrix) {
         if (matrix == null || matrix.length == 0) {
             return 0;
@@ -103,7 +130,7 @@ public class MinPathSum {
     public static void main(String[] args) {
         MinPathSum obj = new MinPathSum();
         int[][] matrix = new int[][]{{1, 3, 5, 9}, {8, 1, 3, 4}, {5, 0, 6, 1}, {8, 8, 4, 0}};
-        int res = obj.minPathSum03(matrix);
+        int res = obj.minPathSum04(matrix);
         System.out.println(res);
     }
 }
