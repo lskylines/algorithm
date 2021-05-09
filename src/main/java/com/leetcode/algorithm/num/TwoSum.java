@@ -15,6 +15,7 @@ public class TwoSum {
      * 两数之和
      * 1) 暴力法
      * 2） 哈希表
+     * 3）双指针
      */
     public int[] twoSum(int[] nums, int target) {
         if (nums == null || nums.length < 2) {
@@ -45,6 +46,28 @@ public class TwoSum {
             map.put(nums[i], i);
         }
         return null;
+    }
+
+    public int[] twoSum03(int[] nums, int target) {
+        if (nums == null || nums.length < 2) {
+            return null;
+        }
+        int[] res = new int[2];
+        int p1 = 0;
+        int p2 = nums.length - 1;
+        while (p1 < p2) {
+            int sumVal = nums[p1] + nums[p2];
+            if (sumVal == target) {
+                res[0] = p1 + 1;
+                res[1] = p2 + 1;
+                return res;
+            } else if (sumVal > target) {
+                p2--;
+            } else {
+                p1++;
+            }
+        }
+        return res;
     }
 
     public static void main(String[] args) {
