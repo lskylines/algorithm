@@ -70,6 +70,36 @@ public class KthSmallest {
         }
         return ret.get(k-1);
     }
+
+    /**Morris实现中序遍历*/
+    public int kthSmallest03(TreeNode root, int k) {
+        if (root == null || k <= 0) {
+            return -1;
+        }
+        TreeNode currentNode = root;
+        TreeNode mostRightNode = null;
+        while (currentNode != null) {
+            mostRightNode = currentNode.left;
+            if (mostRightNode != null) {
+                while (mostRightNode.right != null && mostRightNode.right != currentNode) {
+                    mostRightNode = mostRightNode.right;
+                }
+                if (mostRightNode.right == null) {
+                    mostRightNode.right = currentNode;
+                    currentNode = currentNode.left;
+                    continue ;
+                } else {
+                    mostRightNode.right = null;
+                }
+            }
+            if (--k == 0) {
+                return currentNode.val;
+            }
+            currentNode = currentNode.right;
+        }
+        return -1;
+    }
+
     public static void main(String[] args) {
         TreeNode root = new TreeNode(3);
         root.left = new TreeNode(1);
