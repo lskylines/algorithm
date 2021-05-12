@@ -9,6 +9,8 @@ package com.leetcode.algorithm.dp;
 public class CanPartition {
     /**
      * 分割等和子集
+     * 1) 二维数组动态规划
+     * 2） 一维数组动态规划
      */
     public boolean canPartition(int[] nums) {
         int sum = 0;
@@ -19,35 +21,18 @@ public class CanPartition {
         if ((sum & 1) == 1) {
             return false;
         }
-        int len = nums.length;
         int target = sum / 2;
-        // 创建二维状态数组，行：物品索引，列：容量（包括 0）
-        boolean[][] dp = new boolean[len][target + 1];
-
-        // 先填表格第 0 行，第 1 个数只能让容积为它自己的背包恰好装满
-        if (nums[0] <= target) {
-            dp[0][nums[0]] = true;
-        }
-        // 再填表格后面几行
-        for (int i = 1; i < len; i++) {
-            for (int j = 0; j <= target; j++) {
-                // 直接从上一行先把结果抄下来，然后再修正
-                dp[i][j] = dp[i - 1][j];
-
-                if (nums[i] == j) {
-                    dp[i][j] = true;
-                    continue;
-                }
-                if (nums[i] < j) {
-                    dp[i][j] = dp[i - 1][j] || dp[i - 1][j - nums[i]];
+        int[][] dp = new int[nums.length + 1][target + 1];
+        for (int i = 1; i <= nums.length; i++) {
+            for (int j = 1; j <= target; j++) {
+                if (j >= nums[i -1]) {
+                    dp[i][j] = Math.max(dp[i -1][j], dp[i - 1][j - nums[i -1]] + nums[i - 1]);
+                } else {
+                    dp[i][j] = dp[i - 1][j];
                 }
             }
-            //剪枝
-            if (dp[i][target]) {
-                return true;
-            }
         }
-        return dp[len - 1][target];
+        return dp[nums.length][target] == target;
     }
 
     public boolean canPartition02(int[] nums) {
@@ -59,21 +44,14 @@ public class CanPartition {
             return false;
         }
         int target = sum / 2;
-        int len = nums.length;
-        boolean[] dp = new boolean[target + 1];
-        dp[0] = true;
-        if (nums[0] <= target) {
-            dp[nums[0]] = true;
-        }
-        for (int i = 1; i < len; i++) {
-            for (int j = target; j >= nums[i] ; j--) {
-                if (dp[target]) {
-                    return true;
-                }
-                dp[j] = dp[j] || dp[j - nums[i]];
+        int[] dp = new int[target + 1];
+        //一维数组需要进行重量从大到小
+        for (int i = 1; i <= nums.length; i++) {
+            for (int j = target; j >= nums[i -1] ; j--) {
+                dp[j] = Math.max(dp[j], dp[j - nums[i -1]] + nums[i -1]);
             }
         }
-        return dp[target];
+        return dp[target] == target;
     }
 
 
