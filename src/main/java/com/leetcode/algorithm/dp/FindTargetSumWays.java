@@ -10,7 +10,7 @@ public class FindTargetSumWays {
     /*
      *  目标和
      * 1)暴力法
-     * 2)动态规划  TODO
+     * 2)动态规划
      */
     private int count = 0;
     public int findTargetSumWays(int[] nums, int target) {
@@ -18,8 +18,23 @@ public class FindTargetSumWays {
         return count;
     }
 
-    public int findTargetSumWays02(int[] nums, int target) {
-        return 0;
+    public int findTargetSumWays02(int[] nums, int S) {
+        int sum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+        }
+        if (S > sum || (S + sum) % 2 == 1) {
+            return 0;
+        }
+        int target = (S  + sum) / 2;
+        int[] dp = new int[target + 1];
+        dp[0] = 1;
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = target; j >= nums[i]; j--) {
+                dp[j] = dp[j] + dp[j - nums[i]];
+            }
+        }
+        return dp[target];
     }
 
     private void calculate(int[] nums, int target, int index, int S) {
