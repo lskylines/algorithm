@@ -13,12 +13,32 @@ import java.util.Stack;
 public class VerifySquenceOfBST {
     /*
      * 二叉搜索树的后序遍历序列
+     * 1) 递归
+     * 2）后续遍历倒叙，单调栈
      */
     public boolean verifySquenceOfBST(int[] seq) {
         if (seq == null || seq.length == 0) {
-            return false;
+            return true;
         }
         return verify(seq, 0, seq.length - 1);
+    }
+
+    public boolean verifyPostorder(int[] seq) {
+        if (seq == null || seq.length == 0) {
+            return true;
+        }
+        int root = Integer.MAX_VALUE;
+        Stack<Integer> stack = new Stack<>();
+        for (int i = seq.length -1; i >= 0; i--) {
+            if (seq[i] > root) {
+                return false;
+            }
+            while (!stack.isEmpty() && seq[i] < stack.peek()) {
+                root = stack.pop();
+            }
+            stack.push(seq[i]);
+        }
+        return true;
     }
 
     public boolean verify(int[] sequence, int first, int last) {
