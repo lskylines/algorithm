@@ -1,7 +1,10 @@
 package com.leetcode.algorithm.tree;
 
 import com.leetcode.algorithm.tree.Node.TreeNode;
+import sun.reflect.generics.tree.Tree;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -13,6 +16,8 @@ import java.util.Stack;
 public class Flatten {
     /*
      * 二叉树展开为链表
+     * 1） 非递归
+     * 2） 递归
      */
     private TreeNode preNode;
     private TreeNode targetNode;
@@ -33,15 +38,42 @@ public class Flatten {
                 stack.push(temp.left);
             }
             if (preNode == null) {
-                preNode = temp;
                 resNode = temp;
             } else {
                 preNode.left = null;
                 preNode.right = temp;
-                preNode = temp;
             }
+            preNode = temp;
         }
         return resNode;
+    }
+
+    public void flatten02(TreeNode root) {
+        if (root == null) {
+            return ;
+        }
+        List<TreeNode> list = new ArrayList<>();
+        preOrder(root, list);
+        TreeNode preNode = null;
+        TreeNode currentNode = null;
+        TreeNode target = null;
+        for (int i = 1; i < list.size(); i++) {
+            preNode = list.get(i -1);
+            currentNode = list.get(i);
+            preNode.left = null;
+            preNode.right = currentNode;
+            if (target == null) {
+                target = preNode;
+            }
+        }
+    }
+
+    private void  preOrder(TreeNode root, List<TreeNode> list) {
+        if (root != null) {
+            list.add(root);
+            preOrder(root.left, list);
+            preOrder(root.right, list);
+        }
     }
 
 
@@ -53,9 +85,10 @@ public class Flatten {
         root.left.right = new TreeNode(4);
         root.right.right = new TreeNode(6);
         Flatten obj = new Flatten();
-        TreeNode res = obj.flatten(root);
-        while (res != null) {
-            res = res.right;
+        TreeNode target = obj.flatten(root);
+        while (target != null) {
+            System.out.println(target.val);
+            target = target.right;
         }
     }
 }
