@@ -12,6 +12,7 @@ import com.leetcode.algorithm.tree.Node.TreeNode;
 public class SortedListToBST {
     /*
      * 有序链表转换二叉搜索树
+     * 1) 分治
      */
     public TreeNode sortedListToBST(ListNode head) {
         if (head == null) {
@@ -35,4 +36,29 @@ public class SortedListToBST {
         return newNode;
     }
 
+
+    public TreeNode sortedListToBST02(ListNode head) {
+        return buildTree(head, null);
+    }
+
+    private TreeNode buildTree(ListNode left, ListNode right) {
+        if (left == right) {
+            return null;
+        }
+        ListNode middle = findMiddle(left, right);
+        TreeNode root = new TreeNode(middle.val);
+        root.left = buildTree(left, middle);
+        root.right = buildTree(middle.next, right);
+        return root;
+    }
+
+    private ListNode findMiddle(ListNode left, ListNode right) {
+        ListNode slowNode = left;
+        ListNode fastNode = left;
+        while (fastNode != right && fastNode.next != right) {
+            fastNode = fastNode.next.next;
+            slowNode = slowNode.next;
+        }
+        return slowNode;
+    }
 }
