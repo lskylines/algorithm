@@ -43,4 +43,32 @@ public class MoveZero {
             }
         }
     }
+
+    public void moveZeroes03(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return ;
+        }
+        devide(nums, 0, nums.length -1);
+    }
+
+    private void devide(int[] nums, int low, int high) {
+        int less = low -1;
+        int current = low;
+        int more = high;
+        while (current <= more) {
+            if (nums[current] != 0) {
+                swap(nums, ++less, current++);
+            } else {
+                current++;
+            }
+        }
+    }
+
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+
+
 }
