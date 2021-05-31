@@ -20,6 +20,7 @@ public class MovingCount {
         if (x >= m || y >= n || x < 0 || y < 0 || visit[x][y] || sum(x, y) > k) {
             return 0;
         }
+        visit[x][y] = true;
         return 1 + dfs(x + 1, y, m, n, k) + dfs(x, y + 1, m, n, k);
     }
 
