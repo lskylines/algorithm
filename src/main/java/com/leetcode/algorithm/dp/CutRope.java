@@ -11,7 +11,9 @@ import java.util.Map;
  */
 public class CutRope {
     /*
-     * 剪绳子 //todo DP待优化
+     * 剪绳子
+     * 1) 递归 + 记忆化
+     * 2） 动态规划
      */
     private Map<Integer, Integer> map = new HashMap<>();
     public int cutRope(int n) {
@@ -27,6 +29,20 @@ public class CutRope {
             map.put(n, res);
         }
         return res;
+    }
+
+    public int cutRope02(int n) {
+        int[] dp = new int[n + 1];
+        //绳子剪掉一段后，如果剪掉长度为1，对最后的乘积没有增益，所以从长度为2开始
+        dp[2] = 1;
+        for (int i = 3; i <= n; i++) {
+            for (int j = 2; j < i; j++) {
+                //剪掉的绳子第一段， 剩下的(i - j)不剪， 乘积为 j * (i - j)
+                //剩下的继续剪, 乘积为 j * (dp[i - j])
+                dp[i] = Math.max(dp[i], Math.max(j * (i - j), j * dp[i - j]));
+            }
+        }
+        return dp[n];
     }
 
     public static void main(String[] args) {
