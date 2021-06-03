@@ -12,6 +12,7 @@ public class IntegerBreak {
     /**
      * 整数拆分
      * 1) 动态规划
+     * 2) 等价于剪绳子
      */
     public int integerBreak(int n) {
         if (n == 1) {
@@ -26,6 +27,22 @@ public class IntegerBreak {
             dp[i] = curMax;
         }
         System.out.println(Arrays.toString(dp));
+        return dp[n];
+    }
+
+    public int integerBreak02(int n) {
+        if (n == 1) {
+            return 1;
+        }
+        int[] dp = new int[n + 1];
+        dp[2] = 1;
+        for (int i = 3; i <= n; i++) {
+            for (int j = 1; j < i; j++) {
+                //剪掉的第一段， 剩下的(i - j)不剪， 乘积为 j * (i - j)
+                //剩下的继续剪, 乘积为 j * (dp[i - j])
+                dp[i] = Math.max(dp[i], Math.max(j * (i - j), j * dp[i - j]));
+            }
+        }
         return dp[n];
     }
 
