@@ -9,9 +9,10 @@ package com.leetcode.algorithm.dp;
 public class IsSubsequence {
     /*
      *  判断子序列
+     * 1） 动态规划
+     * 2）双指针
      */
     public boolean isSubsequence(String s, String t) {
-
         int m = s.length();
         int n = t.length();
         int[][] dp = new int[n + 1][m + 1];
@@ -25,5 +26,19 @@ public class IsSubsequence {
             }
         }
         return dp[n][m] == m;
+    }
+
+    public boolean isSubsequence02(String s, String t) {
+        int m =  s.length();
+        int n = t.length();
+        int i = 0;
+        int j = 0;
+        while (i < m && j < n) {
+            if (s.charAt(i) == t.charAt(j)) {
+                i++;
+            }
+            j++;
+        }
+        return i == m;
     }
 }
