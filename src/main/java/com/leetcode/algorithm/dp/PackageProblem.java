@@ -10,7 +10,7 @@ public class PackageProblem {
     /*
      * 假设我们背包可容纳的重量是4kg，有3样东西可供我们选择，一个是高压锅有4kg，价值300元，
      * 一个是风扇有3kg，价值200元，最后一个是一双运动鞋有1kg，价值150元。问要装哪些东西在重
-     * 量不能超过背包容量的情况下价值最大   TODO 重新理解
+     * 量不能超过背包容量的情况下价值最大
      */
     public static int packageProblem() {
         int packageWeight = 4;
