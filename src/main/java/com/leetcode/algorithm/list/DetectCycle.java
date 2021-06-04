@@ -2,6 +2,9 @@ package com.leetcode.algorithm.list;
 
 import com.leetcode.algorithm.list.Node.ListNode;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @ ClassName DetectCycle
  * @ author lskyline
@@ -12,6 +15,7 @@ public class DetectCycle {
     /*
      * 环形链表 II
      * 1) 双指针
+     * 2) 使用Set集合校验
      */
     public ListNode detectCycle(ListNode head) {
         if (head == null || head.next == null) {
@@ -33,6 +37,24 @@ public class DetectCycle {
         }
 
         return fastNode;
+    }
+
+    public ListNode detectCycle02(ListNode head) {
+        if (head == null || head.next == null) {
+            return null;
+        }
+        ListNode currentNode = head;
+        Set<ListNode> set = new HashSet<>();
+        while (currentNode != null) {
+            //如果链表中存在换，会进入if语句中
+            if (set.contains(currentNode)) {
+                return currentNode;
+            }
+            set.add(currentNode);
+            currentNode = currentNode.next;
+        }
+        //遍历完链表，不存在环， 返回null
+        return null;
     }
 
     public static void main(String[] args) {
