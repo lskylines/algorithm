@@ -9,7 +9,7 @@ import com.leetcode.algorithm.list.Node.ListNode;
  * @ Version: 1.0
  */
 public class OptPalindrome {
-    //判断是否回文字符串，优化
+    //判断是否回文字符串
     public static boolean isPalindrome(ListNode head) {
         if (head == null || head.next == null) {
             return true;
@@ -20,21 +20,21 @@ public class OptPalindrome {
         ListNode middleNode = findMiddle(slow, fast);
         //对中点链表进行反转
         ListNode lastNode = reverseList(middleNode);
-        ListNode firstNoe = head;
-
+        ListNode firstNode = head;
         ListNode tempNode = lastNode;
-
-        while (firstNoe != null) {
-            if (firstNoe.val != lastNode.val) {
-                return false;
+        boolean flag = true;
+        while (firstNode != null) {
+            if (firstNode.val != lastNode.val) {
+                flag = false;
+                break ;
             }
-            firstNoe = firstNoe.next;
+            firstNode = firstNode.next;
             lastNode = lastNode.next;
         }
 
         //将链表恢复原来状态
         recoverList(tempNode);
-        return true;
+        return flag;
     }
 
     //对反转的链表进行恢复操作
