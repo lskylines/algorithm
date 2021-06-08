@@ -21,18 +21,13 @@ public class SubarraySum {
         if (nums == null) {
             return 0;
         }
-        Arrays.sort(nums);
         int cnt = 0;
-        for (int i = 0; i < nums.length; i++) {
+        for (int start = 0; start < nums.length; start++) {
             int sum = 0;
-            for (int j = i; j < nums.length; j++) {
-                if (nums[j] > k) {
-                    break ;
-                } else {
-                    sum += nums[j];
-                    if (sum == k) {
-                        cnt++;
-                    }
+            for (int end = start; end >= 0; end--) {
+                sum += nums[end];
+                if (sum == k) {
+                    cnt++;
                 }
             }
         }
