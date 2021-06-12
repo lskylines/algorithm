@@ -46,6 +46,48 @@ public class AddTwoNumbers {
         return node.next;
     }
 
+    public ListNode addTwoNumbers02(ListNode l1, ListNode l2) {
+        if (l1 == null && l2 == null) {
+            return null;
+        }
+        if (l1 == null)  {
+            return l2;
+        }
+        if (l2 == null) {
+            return l1;
+        }
+        //利用链表反转后，节约了O（N）的存储空间
+        ListNode dummyNode = new ListNode(-1);
+        ListNode head1 = reverseNode(l1);
+        ListNode head2 = reverseNode(l2);
+        int carry = 0;
+        while (head1 != null || head2 != null || carry != 0) {
+            int num1 = head1 != null ? head1.val : 0;
+            int num2 = head2 != null ? head2.val : 0;
+            int sum = num1 + num2 + carry;
+            ListNode newNode = new ListNode(sum % 10);
+            newNode.next = dummyNode.next;
+            dummyNode.next = newNode;
+            carry = sum / 10;
+            head1 = head1 != null ? head1.next : null;
+            head2 = head2 != null ? head2.next : null;
+        }
+        return dummyNode.next;
+    }
+
+    private ListNode reverseNode(ListNode head) {
+        ListNode preNode = null;
+        ListNode currentNode = head;
+        ListNode nextNode = null;
+        while (currentNode != null) {
+            nextNode = currentNode.next;
+            currentNode.next = preNode;
+            preNode = currentNode;
+            currentNode = nextNode;
+        }
+        return preNode;
+    }
+
     /**返回组装进栈的链表值*/
     private Stack<Integer> buildStack(ListNode node) {
         Stack<Integer> stack = new Stack<Integer>();
