@@ -16,6 +16,7 @@ public class SumNumbers {
     /*
      * 求根节点到叶节点数字之和
      * 1) 存储根节点到叶子节点的节点值，进行字符串拼接，转换数值进行相加
+     * 2) 直接结算
      */
     private List<List<Integer>> ret = new ArrayList<>();
 
@@ -37,29 +38,19 @@ public class SumNumbers {
     }
 
     public int sumNumbers02(TreeNode root) {
+        return dfs02(root, 0);
+    }
+
+    private int dfs02(TreeNode root, int preSum) {
         if (root == null) {
             return 0;
         }
-        dfs02(root, new StringBuilder());
-        int res = 0;
-        for (String str : result) {
-            res += Integer.parseInt(str);
-        }
-        return res;
-    }
-
-
-    private void dfs02(TreeNode root, StringBuilder sb) {
-        if (root == null) {
-            return ;
-        }
-        sb.append(root.val);
+        int sum = preSum * 10 + root.val;
         if (root.left == null && root.right == null) {
-            result.add(sb.toString());
+            return sum;
+        } else {
+            return dfs02(root.left, sum) + dfs02(root.right,sum);
         }
-        dfs02(root.left, sb);
-        dfs02(root.right, sb);
-        sb.deleteCharAt(sb.length() -1);
     }
 
     private void dfs(TreeNode root, List<Integer> arr) {
