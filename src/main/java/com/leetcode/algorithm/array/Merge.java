@@ -10,7 +10,7 @@ import java.util.Arrays;
  */
 public class Merge {
     /*
-     * 合并区间 todo + 1
+     * 合并区间
      */
     public int[][] merge(int[][] intervals) {
         Arrays.sort(intervals, (v1, v2) -> v1[0] - v2[0]);
