@@ -1,3 +1,4 @@
 # algorithm
 ---
-Min Stack
+Stack
+- Min Stack
